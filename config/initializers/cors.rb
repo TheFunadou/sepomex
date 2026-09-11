@@ -1,23 +1,20 @@
-# Be sure to restart your server when you modify this file.
-
-# Avoid CORS issues when API is called from the frontend app.
-# Handle Cross-Origin Resource Sharing (CORS) in order to accept cross-origin AJAX requests.
-
-# Read more: https://github.com/cyu/rack-cors
-
-require 'rack/cors'
+# frozen_string_literal: true
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    # Define allowed origins from environment variable
-    # In production: igaproductos.com, api.igaproductos.com, adminpanel.igaproductos.com
-    # In development: localhost variants
-    origins ENV.fetch('CORS_ORIGINS', 'localhost:3000,127.0.0.1:3000').split(',')
+    origins 'igaproductos.com',
+            'www.igaproductos.com',
+            'api.igaproductos.com',
+            'adminpanel.igaproductos.com',
+            'sepomex.igaproductos.com',
+            'localhost:3000',
+            'localhost:3001',
+            '127.0.0.1'
 
     resource '*',
-             headers: :any,
-             methods: [:get, :post, :put, :patch, :delete, :options, :head],
-             credentials: true,
-             max_age: 3600
+      headers: :any,
+      methods: [:get, :post, :put, :patch, :delete, :options],
+      credentials: true,
+      max_age: 3600
   end
 end
